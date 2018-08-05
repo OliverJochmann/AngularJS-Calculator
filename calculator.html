@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+</head>
+
+<body ng-app="calculatorApp" style="font-family:'Courier New'">
+  <div ng-controller="mainCtrl" align="center">
+
+    <!--display numbers and operator-->
+    {{first +" "+ operator + " "+ second}}
+    <br>
+
+    <!--instancing of getResult function via ng-if-->
+    <div ng-if="showresult">{{"= " + getResult(operator)}}</div>
+    <br ng-if="!showresult">
+
+    <!--input - visibility is managed by &&-connected toggles-->
+    <input type="number" ng-show="inputtoggle && !showresult" ng-model="first" placeholder="input first number" autofocus>
+    <input type="number" ng-show="!inputtoggle && !showresult" ng-model="second" placeholder="input second number">
+    <br>
+
+    <!--Don't Repeat Yourself - generation of operator buttons via ng-repeat-->
+    <button ng-repeat="op in ops" ng-click="clickOp(op)">{{op}}</button>
+
+    <!--"=" toggles results-->
+    <button ng-click="showresult=true">=</button>
+
+    <!--Reset Button - could be realized more elegantly, but I have not gotten this to work yet-->
+    <button ng-click="first=''; second=''; operator = '';
+      inputtoggle = true; showresult = false">C</button>
+  </div>
+
+  <script
+   src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="scripts/app.js" type="text/javascript"></script>
+</body>
+</html>
